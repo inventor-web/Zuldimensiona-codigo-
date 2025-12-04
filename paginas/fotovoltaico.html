@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Solar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    h1{
+        font-family: Arial;
+        text-align: center;
+        color: var(--cor4);
+        margin-top: 100px;
+    }
+    .titulo-animado {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: surgir 1.2s ease-out forwards;
+}
+
+@keyframes surgir {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+    .body {
+      font-family: Arial, sans-serif;
+      color: #000;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1E3A8A;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background-color: #1E3A8A;
+    }
+
+    thead th {
+      padding: 12px;
+      color: #fff;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    tbody td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    tbody tr:hover {
+      background-color: #e0ecff;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 90%;
+      padding: 6px 8px;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: #000;
+      text-align: center;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .energia {
+      font-weight: bold;
+    }
+
+    .btnAdd,
+    .btnDimensionar {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btnAdd {
+      background-color: #4461af;
+      color: #fff;
+    }
+
+    .btnAdd:hover {
+      background-color: #163374;
+    }
+
+    .btnDimensionar {
+      float: right;
+      background-color: #4461af;
+      color: white;
+    }
+
+    .btnDimensionar:hover {
+      background-color: #163374;
+    }
+
+    .btnRemove {
+      background: transparent;
+      border: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: red;
+      cursor: pointer;
+    }
+
+     .btnRemove:hover {
+      color: red;
+      opacity: 0.7;
+    }
+
+    .btnRemove:active {
+      color: #a60000;
+      transform: scale(1.1);
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #1E3A8A;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      color: #1E3A8A;
+      margin-bottom: 15px;
+    }
+
+    .modal-content input {
+      padding: 8px;
+      width: 100px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      background-color: #1E3A8A;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #163374;
+    }
+
+    #resultadosDimensionamento {
+      margin-top: 30px;
+      font-size: 1rem;
+      white-space: pre-line;
+      color: #1E3A8A;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+  </style>
+
+</head>
+<body>
+    <!--_____________________________Cabecalho_________________________________-->
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#dimensionamentos">Dimencionar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+        <h1 class="titulo-animado">Dimencionamento monofasico e trifasico <br>
+             para instalacao eletrica residencial</h1>
+
+        <section>
+        <h1>Beneficios</h1>
+        <!--
+        <p class="apresentacao">Ferramenta profissional para dimencionamento completo de sistemas <br> <strong>fotovoltaico</strong>,
+        <strong>comandos eletricos</strong> e <strong>instalacao eletrica</strong> residencial trifasico.</p>
+        --> 
+        </section>
+
+        <section id="benefits" class="benefits">
+        <div class="benefit-card">
+        <h3>✅ Fácil de Usar</h3>
+        <p>Interface simples e intuitiva <br> para você fazer o seu dimencionamento</p>
+        </div>
+        <div class="benefit-card">
+        <h3>⚡ Cálculos Precisos</h3>
+        <p>Dimensionamento completo e com resultados preciso, testado com formadores da area.</p>
+        </div>
+        <div class="benefit-card">
+        <h3>🔒 Seguro e gratuito</h3>
+        <p>Dimencione os seus projectos gratuitamente apartir da nossa plataforma</p>
+        </div>
+    </section>
+
+
+
+  <!--_____________________________Calculadora_________________________________-->
+   
+  <section class="body">
+    
+        <div class="container">
+      <h1>Calculadora de Energia Diária</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Equipamento</th>
+            <th>Potência (W)</th>
+            <th>Quantidade</th>
+            <th>Horas/dia</th>
+            <th>Energia Diária (Wh)</th>
+            <th>Remover</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEquipamentos"></tbody>
+      </table>
+      <button class="btnAdd" onclick="criarLinha()">+ Adicionar Equipamento</button>
+      <button class="btnDimensionar" onclick="abrirModal()">Dimensionar</button>
+      <div id="resultado">Energia Diária Total: 0 Wh</div>
+      <div id="resultadosDimensionamento"></div>
+    </div>
+    <div class="modal" id="modal" onclick="fecharModal(event)">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <h2>Informe as horas de sol da sua região</h2>
+        <input type="number" id="horasSol" value="5.5" step="0.1">
+        <br>
+        <button onclick="confirmarHorasSol()">Confirmar</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!--_____________________________Rodape_________________________________-->
+<footer class="footer-simples">
+  <div class="footer-content">
+    <p><strong>Desenvolvido por Zulkifli  Nordine</strong></p>
+    <p>📞 Contacto: +258 86 841 7725</p>
+    <p>💡 Contribua ou sugira melhorias no <a href="https://github.com/inventor-web" target="_blank">GitHub</a></p>
+    <p>&copy; 2025 Todos os direitos reservados</p>
+  </div>
+
+</footer>
+
+
+
+  <script>
+    const tbody = document.getElementById('tbodyEquipamentos');
+    const resultado = document.getElementById('resultado');
+    const modal = document.getElementById('modal');
+    const horasSolInput = document.getElementById('horasSol');
+    const resultadosDimensionamento = document.getElementById('resultadosDimensionamento');
+
+    function criarLinha() {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" placeholder="Ex: Lâmpada" /></td>
+        <td><input type="number" min="0" placeholder="W" /></td>
+        <td><input type="number" min="1" placeholder="Qtd" /></td>
+        <td><input type="number" min="0" step="0.1" placeholder="Horas" /></td>
+        <td class="energia">0</td>
+        <td><button class="btnRemove">×</button></td>
+      `;
+
+      tr.querySelectorAll('input').forEach(input => input.addEventListener('input', calcularEnergia));
+      tr.querySelector('.btnRemove').addEventListener('click', () => {
+        if (tbody.querySelectorAll('tr').length > 1) {
+          tr.remove();
+          calcularEnergia();
+        } else {
+          alert("⚠️ Não é possível remover todas as linhas.");
+        }
+      });
+
+      tbody.appendChild(tr);
+    }
+
+    function calcularEnergia() {
+      let total = 0;
+      tbody.querySelectorAll('tr').forEach(tr => {
+        const potencia = parseFloat(tr.children[1].querySelector('input').value) || 0;
+        const quantidade = parseInt(tr.children[2].querySelector('input').value) || 0;
+        const horas = parseFloat(tr.children[3].querySelector('input').value) || 0;
+        const energia = potencia * quantidade * horas;
+        tr.querySelector('.energia').textContent = energia.toFixed(2);
+        total += energia;
+      });
+      resultado.textContent = `Energia Diária Total: ${total.toFixed(2)} Wh`;
+    }
+
+    function abrirModal() {
+      modal.style.display = 'flex';
+    }
+
+    function fecharModal(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    function confirmarHorasSol() {
+      modal.style.display = 'none';
+      const hs = parseFloat(horasSolInput.value) || 5.5;
+
+      let energiaTotal = 0;
+      tbody.querySelectorAll('tr').forEach(tr => {
+        const potencia = parseFloat(tr.children[1].querySelector('input').value) || 0;
+        const quantidade = parseInt(tr.children[2].querySelector('input').value) || 0;
+        const horas = parseFloat(tr.children[3].querySelector('input').value) || 0;
+        energiaTotal += potencia * quantidade * horas;
+      });
+
+      const rendimento = 0.85;
+      const pfv = energiaTotal / (hs * rendimento);
+      const ppainel = 400;
+      const npf = pfv / ppainel;
+      const nd = 1;
+      const u = 24;
+      const kbat = 0.65;
+      const kd = 0.60;
+      const c = (energiaTotal * nd) / (u * kbat * kd);
+      const cbateria = 150;
+      const nbat = c / cbateria;
+      const vmax = 30;
+      const imaxdc = pfv / vmax;
+      const pin = energiaTotal * 1.2;
+
+      const texto = `
+1. 🔋 Energia Diária: ${energiaTotal.toFixed(2)} Wh
+2. Potência FV necessária: ${pfv.toFixed(2)} W
+3. Nº de painéis (${ppainel}W): ${Math.ceil(npf)} unidades
+4. Capacidade da bateria: ${c.toFixed(2)} Ah
+5. Nº de baterias (${cbateria}Ah): ${Math.ceil(nbat)} unidades
+6. Corrente máxima DC: ${imaxdc.toFixed(2)} A
+7. Inversor recomendado: Potência > ${pin.toFixed(2)} W`;
+
+      resultadosDimensionamento.textContent = "";
+      let i = 0;
+      function animar() {
+        if (i < texto.length) {
+          resultadosDimensionamento.textContent += texto.charAt(i);
+          i++;
+          setTimeout(animar, 20);
+        }
+      }
+      animar();
+    }
+
+    // Inicializar com duas linhas
+    criarLinha();
+    criarLinha();
+  </script>
+
+</body>
+</html>

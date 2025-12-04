@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dimensionamento Solar - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-main: #F8FAFC;
+      --text-color: #111827;
+      --accent: #10B981;
+      --highlight: #FACC15;
+      --header: #1E3A8A;
+      --border: #E5E7EB;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    header {
+      background-color: var(--header);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    nav ul li a {
+      color: white;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--header);
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      color: #334155;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #059669;
+    }
+
+    .benefits {
+      max-width: 960px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      color: var(--text-color);
+      transition: transform 0.3s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .benefit-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--header);
+      margin-bottom: 12px;
+    }
+
+    .benefit-card p {
+      font-size: 1rem;
+      color: #475569;
+    }
+
+    .calculator-preview {
+      max-width: 480px;
+      background: white;
+      margin: 40px auto 80px;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .calculator-preview h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--header);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .calculator-preview label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .calculator-preview input, 
+    .calculator-preview select {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #f1f5f9;
+      font-size: 1rem;
+    }
+
+    .calculator-preview button {
+      background-color: var(--accent);
+      color: white;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1.1rem;
+    }
+
+    .calculator-preview button:hover {
+      background-color: #059669;
+    }
+
+    #resultadoPreview {
+      margin-top: 24px;
+      background: #ecfdf5;
+      border-left: 6px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px;
+      color: var(--text-color);
+      font-weight: 600;
+      min-height: 70px;
+    }
+
+    footer {
+      background-color: var(--header);
+      color: white;
+      text-align: center;
+      padding: 16px 20px;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    @media(max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .benefits {
+        grid-template-columns: 1fr;
+        margin: 40px 20px;
+      }
+      .calculator-preview {
+        margin: 40px 20px 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dimensionamento eletrico</h1>
+    <nav>
+      <ul>
+        <li><a href="#benefits">Home</a></li>
+        <li><a href="#calculator">Dimencionar</a></li>
+        <li><a href="#contact">Contato</a></li>
+      </ul>
+    </nav>
+    <!-- <img src="maoderobo.jpg" alt="imagem de background"> -->
+
+  </header>
+
+  <section class="hero">
+    <h2>Dimensione seu projecto eletrico <br> com Segurança e Precisão</h2>
+    <p>Ferramenta profissional para dimencionamento completo de sistemas fotovoltaico, <br> comandos eletricos e instalacao eletrica residencial trifasico.
+    </p>
+    <button onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Comece a Calcular</button>
+  </section>
+
+  <section id="benefits" class="benefits">
+    <div class="benefit-card">
+      <h3>✅ Fácil de Usar</h3>
+      <p>Interface simples e intuitiva <br> para você fazer o seu dimencionamento</p>
+    </div>
+    <div class="benefit-card">
+      <h3>⚡ Cálculos Precisos</h3>
+      <p>Dimensionamento completo e com resultados preciso, testado com formadores da area.</p>
+    </div>
+    <div class="benefit-card">
+      <h3>🔒 Seguro e gratuito</h3>
+      <p>Dimencione os seus projectos gratuitamente apartir da nossa plataforma</p>
+    </div>
+  </section>
+
+  <section id="calculator" class="calculator-preview">
+    <h3>Calculadora Rápida</h3>
+    <label for="cargasHome">Consumo total (Wh/dia):</label>
+    <input type="number" id="cargasHome" placeholder="Ex: 3000" />
+    <label for="horasSolHome">Horas de sol/dia:</label>
+    <select id="horasSolHome">
+      <option value="4">4</option>
+      <option value="5" selected>5</option>
+      <option value="6">6</option>
+    </select>
+    <label for="potPainelHome">Potência do painel (W):</label>
+    <input type="number" id="potPainelHome" value="550" />
+    <button onclick="calcularHome()">Calcular</button>
+    <div id="resultadoPreview"></div>
+  </section>
+
+  <footer id="contact">
+    <p>© 2025 Dimensionamento eletrico • <a href="mailto:contato@dimensionamentosolar.com">contato@dimensionamentosolar.com</a></p>
+  </footer>
+
+  <script>
+    function calcularHome() {
+      const cargas = parseFloat(document.getElementById('cargasHome').value);
+      const horasSol = parseFloat(document.getElementById('horasSolHome').value);
+      const potenciaPainel = parseFloat(document.getElementById('potPainelHome').value);
+      const perdas = 0.8;
+
+      if (!cargas || !horasSol || !potenciaPainel) {
+        document.getElementById('resultadoPreview').innerText = "Preencha todos os campos corretamente.";
+        return;
+      }
+
+      const potenciaTotal = cargas / (horasSol * perdas);
+      const numPaineis = Math.ceil(potenciaTotal / potenciaPainel);
+
+      document.getElementById('resultadoPreview').innerHTML = `
+        🔋 Sistema necessário: <strong>${potenciaTotal.toFixed(2)} Wp</strong><br>
+        ☀️ Número de painéis de ${potenciaPainel}W: <strong>${numPaineis}</strong>
+      `;
+    }
+  </script>
+</body>
+</html>

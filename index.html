@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+    <title>Dimensionamento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+        img{
+            width: 100%;
+            height: 700px;
+        }
+
+        header        html {
+  scroll-behavior: smooth;
+}
+  /*______________________________Tipos de dimencionamento_______________________________*/
+    
+    .dimencionamentos {
+        background-color: var(--cor1);
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .titulo-section {
+        font-size: 1.8rem;
+        color: var(--cor4);
+        font-family: 'Orbitron', sans-serif;
+        margin-bottom: 70px;
+    }
+
+    .tipos-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .tipo-item {
+        width: 180px;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.3s;
+    }
+
+    /* Novo contêiner de brilho */
+    .tipo-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 50%;
+        background-color: var(--cor1); /* fundo verde claro com transparência */
+        box-shadow: 0 0 10px #1E3A8A; 
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Efeito no hover */
+    .tipo-item:hover img {
+        box-shadow: 0 0 10px #8597cc, 0 0 40px #4f6bb9;;
+        transform: scale(1.1);
+    }
+
+    .tipo-item p {
+        margin-top: 10px;
+        color: var(--cor2);
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .tipo-item:hover {
+        transform: translateY(-5px);
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="#dimencionamentos">Dimencionar</a></li>
+                <!-- <li><a href="#dimencionamento">Sobre mim</a></li> -->
+            </ul>
+        </nav>
+
+
+        <img src="Img/maoderobo.jpg" alt="imagem de background">
+    </header>
+    <main>
+        <section>
+        <h1>Dimensione seu projecto eletrico <br> com Segurança e Precisão</h1>
+        <p class="apresentacao">Ferramenta profissional para dimencionamento completo de sistemas <br> <strong>fotovoltaico</strong>,
+        <strong>comandos eletricos</strong> e <strong>instalacao eletrica</strong> residencial trifasico.</p>
+        </section>
+        <h2 style="text-align: center; margin-top: 70px; margin-bottom: 10px; color: #1E3A8A;">Beneficios da nossa plataforma </h2>
+        <section id="benefits" class="benefits">
+        <div class="benefit-card">
+        <h3>✅ Fácil de Usar</h3>
+        <p>Interface simples e intuitiva <br> para você fazer o seu dimencionamento</p>
+        </div>
+        <div class="benefit-card">
+        <h3>⚡ Cálculos Precisos</h3>
+        <p>Dimensionamento completo e com resultados preciso, testado com formadores da area.</p>
+        </div>
+        <div class="benefit-card">
+        <h3>🔒 Seguro e gratuito</h3>
+        <p>Dimencione os seus projectos gratuitamente apartir da nossa plataforma</p>
+        </div>
+    </section>
+
+  <section id="dimensionamentos" class="dimencionamentos">
+  <h2 class="titulo-section">Escolha o tipo de Dimensionamento</h2>
+  <div class="tipos-container">
+    
+    <!-- Fotovoltaico -->
+    <a href="paginas/fotovoltaico.html" class="tipo-item">
+      <img src="Img/painel-solar.png" alt="Ícone Fotovoltaico">
+      <p>Sistema Fotovoltaico</p>
+    </a>
+
+    <!-- Residencial -->
+    <a href="paginas/Instaleletrica.html" class="tipo-item">
+      <img src="Img/instalacao residencial.png" alt="Ícone Instalação Residencial">
+      <p>Instalação Residencial</p>
+    </a>
+
+    <!-- Comandos Elétricos -->
+    <a href="paginas/comandoseletricos.html" class="tipo-item" onclick="motor()">
+      <img src="Img/Comando eletrico.png" alt="Ícone Comandos Elétricos">
+      <p>Comandos Elétricos</p>
+    </a>
+
+  </div>
+</section>
+
+    </main>
+
+<footer class="footer-simples">
+  <div class="footer-content">
+    <p><strong>Desenvolvido por Zulkifli  Nordine</strong></p>
+    <p>📞 Contacto: +258 86 841 7725</p>
+    <p>💡 Contribua ou sugira melhorias no <a href="https://github.com/inventor-web" target="_blank">GitHub</a></p>
+    <p>&copy; 2025 Todos os direitos reservados</p>
+  </div>
+
+</footer>
+
+<script>
+    document.querySelectorAll('a[href="#dimencionamentos"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetElement = document.querySelector('.dimencionamentos');
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+window.addEventListener('load', () => {
+  const hash = window.location.hash; // "#dimensionamentos"
+  if (hash) {
+    const element = document.querySelector(hash);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }
+});
+
+function motor (){
+  alert('A pagina que voce clicou ainda esta em construcao')
+}
+</script>
+</body>
+</html>
