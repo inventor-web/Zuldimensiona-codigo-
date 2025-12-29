@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimensionamento para Comandos Elétricos</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .resultados {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .result-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .tabela-dimensionamento {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .tabela-dimensionamento th, 
+        .tabela-dimensionamento td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tabela-dimensionamento th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tabela-dimensionamento tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            color: black;
+        }
+        
+        .componentes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .componente-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        @media (min-width: 768px) {
+            .form-columns {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            
+            .form-column {
+                flex: 1;
+            }
+        }
+        
+        .condutor-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .condutor-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .condutor-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .condutor-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .instalacao-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .instalacao-option {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .instalacao-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .instalacao-option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 style="color: white;">Dimensionamento para Comandos Elétricos</h1>
+            <p>Dimensionamento completo de condutores, disjuntor, relé térmico e contator</p>
+        </header>
+        
+        <div class="card">
+            <h2>Dados do Motor e Instalação</h2>
+            <div class="form-columns">
+                <div class="form-column">
+                    <div class="input-group">
+                        <label for="tensao">Tensão de Alimentação (V)</label>
+                        <select id="tensao">
+                            <option value="127">127V</option>
+                            <option value="220" selected>220V</option>
+                            <option value="380">380V</option>
+                            <option value="440">440V</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="potencia">Potência do Motor (CV)</label>
+                        <input type="number" id="potencia" min="0.25" step="0.25" placeholder="Ex: 5" value="5">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="fp">Fator de Potência</label>
+                        <input type="number" id="fp" value="0.85" min="0.5" max="0.95" step="0.01">
+                    </div>
+                </div>
+                
+                <div class="form-column">
+                    <div class="input-group">
+                        <label for="frequencia">Frequência (Hz)</label>
+                        <select id="frequencia">
+                            <option value="60" selected>60Hz</option>
+                            <option value="50">50Hz</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="rendimento">Rendimento (%)</label>
+                        <input type="number" id="rendimento" value="85" min="50" max="95" step="0.1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Tipo de Condutor</label>
+                        <div class="condutor-options">
+                            <div class="condutor-option selected" data-value="cobre">Cobre</div>
+                            <div class="condutor-option" data-value="aluminio">Alumínio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Método de Instalação</label>
+                <div class="instalacao-options">
+                    <div class="instalacao-option selected" data-value="B1">B1 - Eletroduto embutido</div>
+                    <div class="instalacao-option" data-value="B2">B2 - Eletroduto aparente</div>
+                    <div class="instalacao-option" data-value="C">C - Cabo único no ar</div>
+                    <div class="instalacao-option" data-value="D">D - Cabos unipolares</div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="comprimento">Comprimento do Circuito (metros)</label>
+                <input type="number" id="comprimento" value="30" min="1" step="1">
+            </div>
+            
+            <button id="calcular-btn">Calcular Dimensionamento Completo</button>
+        </div>
+        
+        <div class="resultados" id="resultados">
+            <h2>Resultados do Dimensionamento</h2>
+            
+            <div class="componentes-grid">
+                <div class="componente-card">
+                    <h3>Condutores</h3>
+                    <p id="condutor-result">-</p>
+                    <p id="queda-tensao">-</p>
+                </div>
+                
+                <div class="componente-card">
+                    <h3>Disjuntor Motor</h3>
+                    <p id="disjuntor">-</p>
+                </div>
+                
+                <div class="componente-card">
+                    <h3>Relé Térmico</h3>
+                    <p id="rele-termico">-</p>
+                </div>
+                
+                <div class="componente-card">
+                    <h3>Contator</h3>
+                    <p id="contator">-</p>
+                </div>
+            </div>
+            
+            <div class="result-item">
+                <h3>Corrente Nominal do Motor</h3>
+                <p id="corrente-nominal">-</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Tabelas de Referência</h2>
+            
+            <h3>Tabela de Capacidade de Corrente - Condutores de Cobre (75°C)</h3>
+            <table class="tabela-dimensionamento">
+                <thead>
+                    <tr>
+                        <th>Seção (mm²)</th>
+                        <th>Método B1 (A)</th>
+                        <th>Método B2 (A)</th>
+                        <th>Método C (A)</th>
+                        <th>Método D (A)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-condutores">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+            
+            <h3>Tabela de Contatores</h3>
+            <table class="tabela-dimensionamento">
+                <thead>
+                    <tr>
+                        <th>Corrente (A)</th>
+                        <th>Contator Sugerido</th>
+                        <th>Categoria AC-3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Até 9A</td>
+                        <td>CWC-05 ou similar</td>
+                        <td>9A (3kW em 380V)</td>
+                    </tr>
+                    <tr>
+                        <td>9A - 12A</td>
+                        <td>CWC-08 ou similar</td>
+                        <td>12A (5.5kW em 380V)</td>
+                    </tr>
+                    <tr>
+                        <td>12A - 18A</td>
+                        <td>CWC-10 ou similar</td>
+                        <td>18A (7.5kW em 380V)</td>
+                    </tr>
+                    <tr>
+                        <td>18A - 25A</td>
+                        <td>CWC-16 ou similar</td>
+                        <td>25A (11kW em 380V)</td>
+                    </tr>
+                    <tr>
+                        <td>25A - 32A</td>
+                        <td>CWC-25 ou similar</td>
+                        <td>32A (15kW em 380V)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box">
+                <p><strong>Nota:</strong> Os valores apresentados são baseados na NBR 5410.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <p><strong>Desenvolvido por Zulkifli  Nordine</strong></p>
+                <p>📞 Contacto: +258 86 841 7725</p>
+                <p>💡 Contribua ou sugira melhorias no <a href="https://github.com/inventor-web" target="_blank">GitHub</a></p>
+                <p>&copy; 2025 Todos os direitos reservados</p>
+            </div>        
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calcularBtn = document.getElementById('calcular-btn');
+            const condutorOptions = document.querySelectorAll('.condutor-option');
+            const instalacaoOptions = document.querySelectorAll('.instalacao-option');
+            let tipoCondutor = 'cobre';
+            let metodoInstalacao = 'B1';
+            
+            // Tabela de capacidade de corrente para condutores de cobre (75°C)
+            const tabelaCapacidade = {
+                'cobre': {
+                    'B1': [15.5, 21, 28, 36, 47, 63, 81, 99, 124, 151, 176, 204, 236, 270, 307], // Eletroduto embutido
+                    'B2': [17.5, 24, 32, 41, 57, 76, 96, 119, 149, 182, 211, 244, 282, 322, 366], // Eletroduto aparente
+                    'C':  [19.5, 27, 36, 46, 63, 85, 106, 134, 168, 205, 238, 275, 318, 364, 414], // Cabo único no ar
+                    'D':  [13.5, 18, 24, 31, 42, 56, 72, 89, 111, 135, 158, 182, 210, 241, 274]  // Cabos unipolares
+                },
+                'aluminio': {
+                    'B1': [12, 16, 21, 27, 36, 49, 63, 77, 96, 117, 136, 157, 182, 208, 237],
+                    'B2': [13.5, 18.5, 24.5, 31.5, 44, 59, 74, 92, 115, 141, 164, 189, 219, 250, 284],
+                    'C':  [15, 21, 28, 36, 49, 66, 82, 104, 130, 159, 185, 213, 247, 282, 321],
+                    'D':  [10.5, 14, 18.5, 24, 32.5, 43.5, 56, 69, 86, 105, 122, 141, 163, 187, 213]
+                }
+            };
+            
+            const secoesPadrao = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+            
+            // Preencher tabela de condutores
+            function preencherTabelaCondutores() {
+                const tbody = document.getElementById('tabela-condutores');
+                tbody.innerHTML = '';
+                
+                for (let i = 0; i < secoesPadrao.length; i++) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${secoesPadrao[i]} mm²</td>
+                        <td>${tabelaCapacidade.cobre.B1[i]} A</td>
+                        <td>${tabelaCapacidade.cobre.B2[i]} A</td>
+                        <td>${tabelaCapacidade.cobre.C[i]} A</td>
+                        <td>${tabelaCapacidade.cobre.D[i]} A</td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            }
+            
+            preencherTabelaCondutores();
+            
+            // Selecionar tipo de condutor
+            condutorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    condutorOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    tipoCondutor = this.dataset.value;
+                });
+            });
+            
+            // Selecionar método de instalação
+            instalacaoOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    instalacaoOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    metodoInstalacao = this.dataset.value;
+                });
+            });
+            
+            calcularBtn.addEventListener('click', function() {
+                // Obter valores dos inputs
+                const tensao = parseFloat(document.getElementById('tensao').value);
+                const potenciaCV = parseFloat(document.getElementById('potencia').value);
+                const rendimento = parseFloat(document.getElementById('rendimento').value) / 100;
+                const fp = parseFloat(document.getElementById('fp').value);
+                const comprimento = parseFloat(document.getElementById('comprimento').value);
+                
+                // Validar entrada
+                if (isNaN(potenciaCV) || potenciaCV <= 0) {
+                    alert('Por favor, insira uma potência válida para o motor.');
+                    return;
+                }
+                
+                if (isNaN(comprimento) || comprimento <= 0) {
+                    alert('Por favor, insira um comprimento válido para o circuito.');
+                    return;
+                }
+                
+                // 1. Calcular corrente nominal do motor
+                const potenciaW = potenciaCV * 735.5; // Converter CV para Watts
+                const correnteNominal = potenciaW / (Math.sqrt(3) * tensao * fp * rendimento);
+                
+                // 2. Dimensionar condutores
+                const capacidadeTabela = tabelaCapacidade[tipoCondutor][metodoInstalacao];
+                let secaoCondutor = 0;
+                
+                for (let i = 0; i < capacidadeTabela.length; i++) {
+                    if (capacidadeTabela[i] >= correnteNominal * 1.25) { // Fator de correção 1.25
+                        secaoCondutor = secoesPadrao[i];
+                        break;
+                    }
+                }
+                
+                if (secaoCondutor === 0) {
+                    secaoCondutor = secoesPadrao[secoesPadrao.length - 1];
+                }
+                
+                // 3. Calcular queda de tensão
+                // Resistividade: Cobre = 0.0172 Ω·mm²/m, Alumínio = 0.0282 Ω·mm²/m
+                const resistividade = tipoCondutor === 'cobre' ? 0.0172 : 0.0282;
+                const resistencia = (resistividade * comprimento * 2) / secaoCondutor; // Ida e volta
+                const quedaTensao = resistencia * correnteNominal;
+                const percentualQueda = (quedaTensao / tensao) * 100;
+                
+                // 4. Dimensionar disjuntor (aproximadamente 1,5 a 2 vezes a corrente nominal)
+                const disjuntor = Math.ceil(correnteNominal * 1.6 / 5) * 5; // Arredonda para múltiplo de 5
+                
+                // 5. Dimensionar relé térmico (faixa de ajuste deve incluir a corrente nominal)
+                const releMin = Math.floor(correnteNominal * 0.9);
+                const releMax = Math.ceil(correnteNominal * 1.2);
+                
+                // 6. Dimensionar contator (baseado na corrente nominal e categoria de utilização)
+                let contator;
+                if (correnteNominal < 9) {
+                    contator = "CWC-05 ou similar (9A em AC-3)";
+                } else if (correnteNominal < 12) {
+                    contator = "CWC-08 ou similar (12A em AC-3)";
+                } else if (correnteNominal < 18) {
+                    contator = "CWC-10 ou similar (18A em AC-3)";
+                } else if (correnteNominal < 25) {
+                    contator = "CWC-16 ou similar (25A em AC-3)";
+                } else if (correnteNominal < 32) {
+                    contator = "CWC-25 ou similar (32A em AC-3)";
+                } else {
+                    contator = "Contator de maior capacidade (consultar catálogo)";
+                }
+                
+                // Exibir resultados
+                document.getElementById('corrente-nominal').textContent = 
+                    `Corrente nominal: ${correnteNominal.toFixed(2)} A`;
+                
+                document.getElementById('condutor-result').textContent = 
+                    `Condutor de ${tipoCondutor === 'cobre' ? 'Cobre' : 'Alumínio'}: ${secaoCondutor} mm²`;
+                
+                document.getElementById('queda-tensao').textContent = 
+                    `Queda de tensão: ${quedaTensao.toFixed(2)} V (${percentualQueda.toFixed(2)}%)`;
+                
+                document.getElementById('disjuntor').textContent = 
+                    `Disjuntor motor: ${disjuntor} A (valor comercial recomendado)`;
+                
+                document.getElementById('rele-termico').textContent = 
+                    `Relé térmico: Faixa de ajuste ${releMin} A a ${releMax} A`;
+                
+                document.getElementById('contator').textContent = 
+                    `Contator: ${contator}`;
+                
+                // Verificar se queda de tensão está dentro dos limites
+                if (percentualQueda > 4) {
+                    document.getElementById('queda-tensao').innerHTML += 
+                        ` <span style="color: var(--accent-color); font-weight: bold;">(Atenção: acima de 4%)</span>`;
+                }
+            });
+            
+            // Calcular automaticamente ao carregar a página com valores padrão
+            calcularBtn.click();
+        });
+    </script>
+</body>
+</html>
