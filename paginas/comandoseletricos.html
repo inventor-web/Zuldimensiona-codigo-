@@ -164,7 +164,13 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 2rem;
             }
-            
+
+        @media (max-width: 767px) {
+            .tabela-dimensionamento {
+                display: none !important;
+            }
+        }
+
             .form-column {
                 flex: 1;
             }
@@ -565,3 +571,4 @@
     </script>
 </body>
 </html>
+
