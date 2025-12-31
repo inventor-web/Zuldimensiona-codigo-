@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dimensionamento para Comandos Elétricos</title>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -34,7 +35,7 @@
             padding: 20px;
         }
         
-        header {
+        .header2 {
             background-color: var(--primary-color);
             color: white;
             padding: 1rem;
@@ -164,21 +165,19 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 2rem;
             }
-        }
-        @media (max-width: 767px) {
-            .tabela-dimensionamento {
-                display: none !important;
-            }
-                .card {
-                display: none !important;
-            }
-        }
-
+            
             .form-column {
                 flex: 1;
             }
         }
         
+        @media (max-width: 767px) {
+            .card1 {
+                display: none !important;
+            }
+        }
+
+
         .condutor-options {
             display: flex;
             gap: 1rem;
@@ -233,11 +232,23 @@
     </style>
 </head>
 <body>
-    <div class="container">
+
         <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#">Dimencionar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!--Aqui contem o main da parte do dimensionamento-->
+    <div class="container">
+        <div class="header2">
             <h1 style="color: white;">Dimensionamento para Comandos Elétricos</h1>
             <p>Dimensionamento completo de condutores, disjuntor, relé térmico e contator</p>
-        </header>
+        </div>
         
         <div class="card">
             <h2>Dados do Motor e Instalação</h2>
@@ -338,7 +349,7 @@
             </div>
         </div>
         
-        <div class="card">
+        <div class="card1">
             <h2>Tabelas de Referência</h2>
             
             <h3>Tabela de Capacidade de Corrente - Condutores de Cobre (75°C)</h3>
@@ -399,7 +410,32 @@
                 <p><strong>Nota:</strong> Os valores apresentados são baseados na NBR 5410.</p>
             </div>
         </div>
-        
+    
+        <section>
+        <h1>Beneficios do site</h1>
+        <!--
+        <p class="apresentacao">Ferramenta profissional para dimencionamento completo de sistemas <br> <strong>fotovoltaico</strong>,
+        <strong>comandos eletricos</strong> e <strong>instalacao eletrica</strong> residencial trifasico.</p>
+        --> 
+        </section>
+
+        <!--Aqui contem os beneficios d site-->
+       <section id="benefits" class="benefits">
+        <div class="benefit-card">
+        <h3>✅ Fácil de Usar</h3>
+        <p>Interface simples e intuitiva <br> para você fazer o seu dimencionamento</p>
+        </div>
+        <div class="benefit-card">
+        <h3>⚡ Cálculos Precisos</h3>
+        <p>Dimensionamento completo e com resultados preciso, testado com formadores da area.</p>
+        </div>
+        <div class="benefit-card">
+        <h3>🔒 Seguro e gratuito</h3>
+        <p>Dimencione os seus projectos gratuitamente apartir da nossa plataforma</p>
+        </div>
+        </section>
+
+        <!--Aqui contem o footer-->
         <footer>
             <div class="footer-content">
                 <p><strong>Desenvolvido por Zulkifli  Nordine</strong></p>
@@ -410,6 +446,7 @@
         </footer>
     </div>
 
+        <!--Aqui contem o javascript-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const calcularBtn = document.getElementById('calcular-btn');
@@ -574,6 +611,3 @@
     </script>
 </body>
 </html>
-
-
-
