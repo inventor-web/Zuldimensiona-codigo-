@@ -170,7 +170,12 @@
                 flex: 1;
             }
         }
-        
+
+        @media (max-width: 768px) {
+        .container {
+            padding: 5px;
+        }
+    }
         /*Aqui esconde as tabelas da corrente dos condutores e a tabela dos contactores*/
             .esconder {
                 display: none !important;
@@ -633,3 +638,4 @@ const secoesPadrao = [0.5, 0.75, 1, 1.5, 2.5, 4, 6, 10];
     </script>
 </body>
 </html>
+
